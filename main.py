@@ -18,12 +18,29 @@ SNOW_SIZE = 64
 BG_COLOR = (25, 25, 25)
 
 
+class Snow(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.speed = random.randint(1, 3)
+        self.img_num = random.randint(1, 2)
+        self.SNOW_SIZE = random.randint(32, 64)
+        self.image_filename = f'snowflake{self.img_num}.png'
+        self.image_orig = pygame.image.load(self.image_filename)
+        self.image_orig = pygame.transform.scale(self.image_orig, (self.SNOW_SIZE, self.SNOW_SIZE))
+        self.image = self.image_orig.copy()
+        self.rect = self.image.get_rect(center=(x, y))
+        self.rot = 0
+        self.angle = random.randit(-1, 1)
+
+
 def check_for_exit():
     for e in pygame.event.get():
         if e.type == pygame.QUIT or e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
             sys.exit(0)
 
-'_______________________MAIN______________________'
+
+'_________________________________________________________________________________________MAIN_____________________________________________________________________________________'
 
 pygame.display.set_icon(pygame.image.load('snow.ico'))
 pygame.display.set_caption('Snow')
